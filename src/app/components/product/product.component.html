@@ -6,7 +6,7 @@
   <label for="filterText" class="form-label">Search Product</label>
   <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" name="filterText" placeholder="Search Product">
 </div>
-<div *ngIf = "filterText.length>3" class="alert alert-secondary">
+ <div *ngIf = "filterText" class="alert alert-secondary"> <!--filterText.length>3 -->
   {{filterText}}
 </div>
 <table *ngIf="dataLoaded==true" class="table table-hover">
@@ -18,16 +18,18 @@
           <th scope="col">Fiyat</th>
           <th scope="col">Kdv'li Fiyat</th>
           <th scope="col">Stok Adedi</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let product of products">
+        <tr *ngFor="let product of products | filterPipe:filterText">
           <th scope="row">{{product.productID}}</th>
           <td>{{product.productName |uppercase}}</td>
           <td>{{product.categoryID}}</td>
           <td>{{product.unitPrice | currency:"TRY":" $ ":""}}</td>
-          <td>{{product.unitPrice | vatAdded:10 | currency:"TRY":" $ ":"" }}</td>
+          <td>{{product.unitPrice | vatAdded:18 | currency:"TRY":" $ ":"" }}</td>
           <td>{{product.unitsInStock}}</td>
+          <td><button (click)="addToCart(product)" type="button" class="btn btn-primary">Add to Cart</button></td>
         </tr>
       </tbody>
   </table>
