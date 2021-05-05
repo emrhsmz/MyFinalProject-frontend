@@ -35,8 +35,9 @@ export class ProductAddComponent implements OnInit {
         console.log(response)
         this.toastrService.success(response.message,"Başarılı!");
       },responseError=>{
+        console.log(responseError)
         if(responseError.error.ValidationErrors.length > 0){
-          //console.log(responseError.error.ValidationErrors)
+          console.log(responseError.error.ValidationErrors)
           for (let i = 0; i < responseError.error.ValidationErrors.length; i++) {
             this.toastrService.error(responseError.error.ValidationErrors[i].ErrorMessage,"Doğrulama Hatası!");
           }
